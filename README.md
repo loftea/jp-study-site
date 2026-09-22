@@ -1,8 +1,37 @@
 # 日语研习室
 
+**源码可查看 · 禁止商用 · PolyForm Noncommercial 1.0.0**
+
+[下载 v0.1.0](https://github.com/loftea/jp-study-site/releases/tag/v0.1.0) · [网站技能](skills/jp-study-site/SKILL.md) · [许可证](LICENSE)
+
 本机运行的日语学习网站：教材与阅读、Anki 原生复习、Codex 文字课堂、带来源的长期记忆、课堂补充题和本地备份。前端使用原生 JavaScript，服务使用 Python 标准库。
 
 仓库只包含程序、教学协议、配套 skill 和原创演示材料，不包含用户学习记录、教材/读物、音频、真实 Anki 笔记或任何登录凭据。默认关闭 Anki 和 Codex 连接。
+
+## 界面预览
+
+以下为隔离环境中的原创演示，**不是任何人的真实学习记录**；Anki 与 Codex 连接均关闭。
+
+**今日学习：接续安排、复习入口与每日流程。**
+
+![今日学习工作台](docs/screenshots/today.jpg)
+
+**文字课堂：日语注音、原始回答与完整对话回看。**
+
+![文字课堂演示](docs/screenshots/classroom.jpg)
+
+**学习记录：完成情况与待复测事项分开展示。**
+
+![学习记录与待办](docs/screenshots/progress.jpg)
+
+## 技能与下载
+
+发布提供完整源码包 `jp-study-site-v0.1.0.zip` 和独立技能包 `jp-study-skills-v0.1.0.zip`，附 SHA-256 校验值。独立技能包包括：
+
+- `jp-study-site`：指导从零建立站点、安装依赖、导入材料、维护架构与同步发布。
+- `jp-listening-tts`：课堂结束时生成有真实依据的听力补充题；网站显式加载它。
+
+技能包使用下方同版本源码，不包含教材或个人记录。可让 Codex 从此仓库的 `skills/jp-study-site` 安装技能，或在当前源码项目中明确让 Codex 读取该 `SKILL.md` 开始配置。安装技能本身不会自动开启 Anki/Codex、创建定时任务或导入书籍。
 
 ## 快速开始
 
@@ -70,3 +99,9 @@ python3 scripts/backup_study.py --verify /path/to/backup.zip --restore-to /path/
 在新的隔离副本运行 `python3 scripts/check_release.py`，执行代码检查、隔离回归、HTTP 启动检查和 Git 文件隐私检查。测试不连接真实 Anki、不调用 Codex、不向正式学习库提交答案。发布前还应复查 `git ls-files` 与提交历史。
 
 [配套 skill](skills/jp-study-site/SKILL.md) 使用当前项目作为根目录，指导安装、维护与发布，不固定某人的电脑路径。[发布检查说明](docs/release-review.md) 记录扫描范围、验证结果和限制。
+
+## 许可证：禁止商用
+
+本仓库的原创源码、配套技能、文档、原创示例及演示截图使用 [PolyForm Noncommercial 1.0.0](LICENSE)，分发时须保留 [NOTICE](NOTICE) 与许可条款。此许可不授予商业用途；商用需另行获得版权所有者许可。具体允许的非商业用途及组织类别以许可证全文为准。
+
+这是带非商业限制的源码公开项目，不宣称属于允许商业使用的开源许可证。第三方软件、教材与用户导入材料仍遵守各自条款，本仓库不授予其再分发权利。

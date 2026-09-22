@@ -1,0 +1,29 @@
+{
+  "description": "Screenshots of fictional original fixtures; no real learner history or account connection. Captured from the page viewport without browser chrome.",
+  "files": [
+    {
+      "file": "classroom.jpg",
+      "sha256": "e87480cf843d4f3af2cc7ce3b63cfcad86c9f9755a6603112967d54036ed1be1",
+      "width": 1265,
+      "height": 712,
+      "source": "isolated_original_demo",
+      "reviewed_for_private_data": true
+    },
+    {
+      "file": "progress.jpg",
+      "sha256": "724d6de066ed55f2248e27b9a1552dec25f1435ee2238205e9d5deda781c5214",
+      "width": 1265,
+      "height": 712,
+      "source": "isolated_original_demo",
+      "reviewed_for_private_data": true
+    },
+    {
+      "file": "today.jpg",
+      "sha256": "881b7443566f5351ba0d2c6ae34801ec5f63d8534b8fe07cf5e959e435916f65",
+      "width": 1265,
+      "height": 712,
+      "source": "isolated_original_demo",
+      "reviewed_for_private_data": true
+    }
+  ]
+}

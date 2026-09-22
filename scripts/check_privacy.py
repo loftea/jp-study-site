@@ -3,7 +3,7 @@
 Heuristic checks supplement, rather than replace, review of the release file list.
 """
 from pathlib import Path
-import argparse, re, subprocess
+import argparse, re, subprocess, hashlib, json
 ROOT=Path(__file__).resolve().parents[1]
 PATTERNS={
     'private_key':r'-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----',
@@ -14,12 +14,34 @@ PATTERNS={
     'credential_literal':r'''(?i)(?:api[_-]?key|access[_-]?token|refresh[_-]?token|password)\s*[=:]\s*["'][A-Za-z0-9_+/=-]{16,}["']''',
 }
 FORBIDDEN=('study/','books/','backups/','tmp/','output/','website/dist/data/','website/dist/reading/','website/dist/audio/','website/dist/images/','.codex/')
+SCREENSHOTS={'docs/screenshots/today.jpg','docs/screenshots/classroom.jpg','docs/screenshots/progress.jpg'}
 ALLOWED_SUFFIXES={'.py','.js','.mjs','.md','.json','.html','.css','.svg','.example'}
 
 def git(*args):return subprocess.check_output(['git',*args],cwd=ROOT)
+def approved_images():
+    path=ROOT/'docs/screenshots/manifest.json'
+    return {x['sha256'] for x in json.loads(path.read_text())['files'] if x.get('reviewed_for_private_data') and x.get('source')=='isolated_original_demo'} if path.exists() else set()
+
+def jpeg_without_metadata(payload):
+    if not payload.startswith(b'\xff\xd8') or not payload.endswith(b'\xff\xd9'):return False
+    i=2
+    while i+4<=len(payload):
+        if payload[i]!=255:return False
+        marker=payload[i+1];i+=2
+        length=int.from_bytes(payload[i:i+2],'big')
+        if length<2 or i+length>len(payload):return False
+        body=payload[i+2:i+length]
+        if marker==0xfe or 0xe1<=marker<=0xef:return False
+        if marker==0xe0 and (length!=16 or not body.startswith(b'JFIF\0')):return False
+        if marker==0xda:return True
+        i+=length
+    return False
+
 def scan_text(label,payload,patterns,findings):
     try:text=payload.decode('utf8')
-    except UnicodeDecodeError:findings.append((label,0,'binary_file'));return
+    except UnicodeDecodeError:
+        if hashlib.sha256(payload).hexdigest() not in approved_images() or not jpeg_without_metadata(payload):findings.append((label,0,'unreviewed_binary_or_image_metadata'))
+        return
     for kind,pattern in patterns.items():
         for m in re.finditer(pattern,text):findings.append((label,text.count('\n',0,m.start())+1,kind))
 
@@ -29,7 +51,7 @@ def scan(extra=()):
     names=git('ls-files','-z').decode().split('\0');names=[n for n in names if n]
     for name in names:
         p=ROOT/name
-        if name.startswith(FORBIDDEN) or (p.suffix not in ALLOWED_SUFFIXES and name not in ('.gitignore','LICENSE')):
+        if name.startswith(FORBIDDEN) or (p.suffix not in ALLOWED_SUFFIXES and name not in ('.gitignore','LICENSE','NOTICE') and name not in SCREENSHOTS):
             findings.append((name,0,'excluded_path'))
         if p.is_symlink():findings.append((name,0,'symlink'));continue
         if not p.exists():findings.append((name,0,'missing_file'));continue

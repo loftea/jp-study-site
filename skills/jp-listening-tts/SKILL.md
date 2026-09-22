@@ -16,3 +16,5 @@ description: 为本地标日网站课堂准备有真实学习依据的课后听�
 - 原文和参考答案默认折叠。看过原文后作答记为 transcript_viewed，不能标为盲听；文字转写不能用于评价发音。已生成的练习再次打开不重新出题、不覆盖旧答案。
 
 存储：study/classrooms/<课堂ID>.json 的 supplement；音频在 study/classrooms/audio/<课堂ID>/；作答在 study/practice/website-responses.jsonl，通过 session_id 与 exercise_id 关联课堂。网站按香港日期显示今天的补充练习，往日练习从学习记录回看。
+
+分发本技能时保留仓库 LICENSE 和 NOTICE；本技能采用 PolyForm Noncommercial 1.0.0，未授予商用许可。

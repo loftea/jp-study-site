@@ -1,11 +1,21 @@
 ---
 name: jp-study-site
-description: 安装、维护和扩展本地日语研习室网站，包括 Anki 接入、Codex 文字课堂、学习记录、阅读器、每日任务及备份。用于此项目的开发与排错，不用于替代实际授课。
+description: 建立、安装、维护和扩展本地日语研习室网站，包括 Anki 接入、Codex 文字课堂、学习记录、阅读器、每日任务及备份。用于此项目的开发与排错，不用于替代实际授课。
 ---
 
 # 日语研习室维护
 
 从用户指定的项目或当前工作目录定位根目录，核实 `website/serve.py`、`website/dist/app.js`、`scripts/build_learning_library.py`；不使用固定用户名、绝对安装路径或其他项目的数据。
+
+## 从零建立站点
+
+本技能配套的可执行实现是 `https://github.com/loftea/jp-study-site`，初次发布版本为 `v0.1.0`。用户要求建立同类站点且尚无项目时，将该版本源码克隆或解压到用户指定的新目录；目录非空先检查现有内容，不覆盖用户项目。完整网站不由技能文字重新生成，先使用经验证的实现，再按用户需求扩展。
+
+1. 检查 Python 3.10+ 与平台依赖。macOS 为当前验证重点，TTS 和后台守护有平台限制，不声称全平台可用。
+2. 运行 `python3 scripts/build_learning_library.py`，以原创示例验证 `python3 website/serve.py` 的本机首页。初始化不得覆盖个人记录。
+3. 按用户授权连接本机 Codex/Anki，再导入用户自行提供的教材、读物与词汇；不要把演示数据当作实际学习成果。
+4. 按需设置个人学习目标、课前→课堂→课后流程、备课和备份调度；没有用户配置时不声称自动化已经安装。
+5. 后续优化同步源码、教学协议、检查与本技能。对外分发须保留 LICENSE/NOTICE；本项目与技能采用 PolyForm Noncommercial 1.0.0，未授予商用许可。
 
 先读根目录 README 中的启动、配置与验证范围。数据未初始化时运行 `python3 scripts/build_learning_library.py` 生成原创演示；已有学习数据不可清空以解决启动问题。仅在用户启用时连接 Anki/Codex，凭据由本机 CLI 管理，不能写入源码或网页。
 
