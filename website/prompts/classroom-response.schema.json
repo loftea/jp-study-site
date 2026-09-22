@@ -1,0 +1,225 @@
+{
+  "type": "object",
+  "properties": {
+    "reply": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "next_step": {
+      "type": "string"
+    },
+    "completed_activities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_message_id": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "evaluation": {
+            "type": "string",
+            "enum": [
+              "independent_correct",
+              "assisted_correct",
+              "self_corrected",
+              "needs_review",
+              "unknown"
+            ]
+          },
+          "feedback": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "evidence_message_id",
+          "quote",
+          "topic",
+          "evaluation",
+          "feedback"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "memory_updates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "enum": [
+              "upsert",
+              "forget"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "preference",
+              "goal",
+              "difficulty",
+              "next_step"
+            ]
+          },
+          "key": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "evidence_message_id": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "kind",
+          "key",
+          "content",
+          "evidence_message_id",
+          "quote"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "supplementary_exercises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "explanation": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "transcript": {
+            "type": "string"
+          },
+          "tts_text": {
+            "type": "string"
+          },
+          "evidence_message_id": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "written",
+              "listening"
+            ]
+          },
+          "answers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "prompt",
+          "target",
+          "explanation",
+          "topic",
+          "transcript",
+          "tts_text",
+          "evidence_message_id",
+          "quote",
+          "type",
+          "answers"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "lesson_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "area": {
+            "type": "string",
+            "enum": [
+              "vocabulary",
+              "grammar",
+              "reading",
+              "listening",
+              "application"
+            ]
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "practice",
+              "retest"
+            ]
+          },
+          "evaluation": {
+            "type": "string",
+            "enum": [
+              "independent_correct",
+              "assisted_correct",
+              "self_corrected",
+              "needs_review",
+              "unknown"
+            ]
+          },
+          "evidence_message_id": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "area",
+          "phase",
+          "evaluation",
+          "evidence_message_id",
+          "quote"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "reply",
+    "stage",
+    "summary",
+    "next_step",
+    "completed_activities",
+    "observations",
+    "memory_updates",
+    "supplementary_exercises",
+    "lesson_checks"
+  ],
+  "additionalProperties": false
+}

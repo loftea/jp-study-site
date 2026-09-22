@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "demo": true,
+  "built_on": "原创演示",
+  "lessons": [
+    {
+      "id": "b01",
+      "number": 1,
+      "title_raw": "原创示例：描述天气",
+      "volume": "初级上",
+      "quality": "original_demo",
+      "source_id": "original-demo",
+      "sections": [
+        {
+          "id": "demo-1",
+          "kind": "basic_text",
+          "source_id": "original-demo",
+          "source_member": "original-demo",
+          "paragraphs": [
+            "｜今日《きょう》は｜晴《は》れです。",
+            "｜空《そら》は｜青《あお》いです。"
+          ],
+          "verified": false
+        }
+      ],
+      "vocabulary_ids": [],
+      "grammar": [],
+      "exercises": [],
+      "learning_status": "not_assessed"
+    },
+    {
+      "id": "b02",
+      "number": 2,
+      "title_raw": "原创示例：表达喜好",
+      "volume": "初级上",
+      "quality": "original_demo",
+      "source_id": "original-demo",
+      "sections": [
+        {
+          "id": "demo-2",
+          "kind": "basic_text",
+          "source_id": "original-demo",
+          "source_member": "original-demo",
+          "paragraphs": [
+            "｜私《わたし》は｜音楽《おんがく》が｜好《す》きです。",
+            "｜毎日《まいにち》、｜音楽《おんがく》を｜聞《き》きます。"
+          ],
+          "verified": false
+        }
+      ],
+      "vocabulary_ids": [],
+      "grammar": [],
+      "exercises": [],
+      "learning_status": "not_assessed"
+    }
+  ],
+  "vocabulary": [],
+  "grammar": [],
+  "exercises": [],
+  "sources": [
+    {
+      "id": "original-demo",
+      "title": "原创界面演示，非标日教材",
+      "path": "examples/library.demo.json",
+      "limitations": [
+        "无教材正文、历史学习记录或真实 Anki 卡片"
+      ]
+    }
+  ]
+}
