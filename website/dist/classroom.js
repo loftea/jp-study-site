@@ -1,4 +1,5 @@
 import {mountSupplement} from './practice.js';
+import {classroomText} from './classroom-text.js';
 const api='/api/classrooms';
 const stamp=x=>new Date(x).toLocaleString('zh-CN');
 const memoryKind=k=>({preference:'学习偏好',goal:'学习目标',difficulty:'待巩固',next_step:'下次起点'})[k]||'学习记忆';
@@ -7,7 +8,7 @@ async function request(body){const r=await fetch(api,{method:'POST',headers:{'Co
 export async function mountClassroom(root,id,{esc,ruby,lessons}){
  let timer,session,revision='',loading=false;
  const alive=()=>root.isConnected;
- const rich=text=>ruby(text).replace(/\*\*([^\n]+?)\*\*/g,'<strong>$1</strong>').replace(/^#{1,4} (.+)$/gm,'<strong class="class-text-heading">$1</strong>').replace(/\[([^\]\n]+)\]\((#(?:lesson|textbook)\/b\d{2})\)/g,'<a class="text-link" href="$2">$1</a>');
+ const rich=text=>classroomText(text,ruby);
  root.innerHTML='<p class="loading">正在读取课堂…</p>';
  function notice(message){if(alive())root.querySelector('#class-notice').textContent=message;}
  function pendingKey(){return 'jp-class-pending-'+(id||'create');}

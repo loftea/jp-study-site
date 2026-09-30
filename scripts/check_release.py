@@ -20,7 +20,7 @@ def main():
         for p in root.rglob('*.py'):ast.parse(p.read_text(),filename=str(p.relative_to(root)))
         for p in root.rglob('*.json'):json.loads(p.read_text())
         run([sys.executable,'scripts/build_learning_library.py'],root,env)
-        for name in ('check_imports.py','check_anki_sync.py','check_anki_calendar.py','check_anki_review.py','check_classroom.py','check_classroom_memory.py','check_supplementary.py','check_study_workflow.py','check_daily_preparation.py'):
+        for name in ('check_imports.py','check_anki_sync.py','check_anki_calendar.py','check_anki_review.py','check_classroom.py','check_classroom_model.py','check_classroom_memory.py','check_supplementary.py','check_study_workflow.py','check_daily_preparation.py'):
             run([sys.executable,'scripts/'+name],root,env)
         node=shutil.which('node')
         if not node:raise RuntimeError('Node is required for release verification')

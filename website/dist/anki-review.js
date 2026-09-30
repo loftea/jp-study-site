@@ -65,7 +65,12 @@ async function performRequest(operation,extra,owner){
  }catch(error){
   if(host!==owner||!owner.isConnected)return;
   current=null;disconnected=true;lock(busy);
-  message((pending?'评分是否成功尚未确认，不会自动重试。':'')+error.message+' 点击“重新读取”恢复。');
+  const detail=error.message==='unsupported action'?'Anki 已连接，但网站刷卡组件尚未启用。请安装 JP Website Review Bridge 并重启 Anki。':error.message;
+  if(!lastDocument){
+   const unavailable=`<div class="review-empty"><h2>暂时无法连接复习接口</h2><p class="muted">${escape(detail)}</p></div>`;
+   if(unavailable!==lastEmpty){host.querySelector('#native-card').innerHTML=unavailable;lastEmpty=unavailable;}
+  }
+  message((pending?'评分是否成功尚未确认，不会自动重试。':'')+detail+' 点击“重新读取”恢复。');
  }
 }
 export function mountAnkiReview(container,saved){

@@ -33,6 +33,7 @@ def cli_reply(session, turn, context):
     # No shell interpolation, no browser-supplied flags, no personal integrations or hooks.
     with tempfile.TemporaryDirectory(prefix='jp-classroom-') as temporary:
         args = [binary, 'exec', '--ignore-user-config', '--sandbox', 'read-only', '--skip-git-repo-check', '--json', '-C', temporary,
+                '-c', 'model="gpt-6.1-sol"', '-c', 'model_reasoning_effort="medium"',
                 '-c', 'approval_policy="never"', '-c', 'web_search="disabled"',
                 '-c', 'model_instructions_file='+json.dumps(str(PROMPTS/'classroom-system.md'))]
         for feature in ('shell_tool','unified_exec','apps','plugins','hooks','browser_use','computer_use','multi_agent','image_generation','memories','skill_search','shell_snapshot'):
@@ -48,7 +49,7 @@ def cli_reply(session, turn, context):
         for key in ('CODEX_THREAD_ID','CODEX_INTERNAL_ORIGINATOR_OVERRIDE'): env.pop(key, None)
         try:
             p = subprocess.run(args, input=json.dumps(payload,ensure_ascii=False), text=True,
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=240, env=env)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=600, env=env)
         except subprocess.TimeoutExpired:
             raise RuntimeError('教练响应超时；你的消息已保存，可重试本轮。')
         thread_id = session.get('cli_thread_id'); answer = None; completed = False; usage = None

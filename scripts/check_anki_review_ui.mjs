@@ -26,7 +26,12 @@ const settle=()=>new Promise(resolve=>setImmediate(resolve));
 const question={state:'question',deck:'JP',card_id:1,token:'one',document:'question'};
 const answer={...question,state:'answer',document:'answer',buttons:[1,2,3,4],intervals:['1m','1d','2d','3d']};
 async function reply(data,ok=true){requests.at(-1).resolve({ok,json:async()=>structuredClone(data)});await settle();}
-module.namespace.mountAnkiReview(host,()=>{});await reply(question);
+module.namespace.mountAnkiReview(host,()=>{});
+await reply({error:'unsupported action'},false);
+assert(nodes['#native-card'].innerHTML.includes('JP Website Review Bridge'));
+assert(!nodes['#native-card'].innerHTML.includes('正在连接'));
+const unavailable=mutations;timers[0]();await reply({error:'unsupported action'},false);assert.equal(mutations,unavailable);
+timers[0]();await reply(question);
 // Normal polling must not alter DOM or disable controls, even with a slow reply.
 const initial=mutations,frame=nodes['#native-card'].firstElementChild;
 for(let i=0;i<4;i++){timers[0]();assert.equal(buttons[0].disabled,false);await reply(question);}
